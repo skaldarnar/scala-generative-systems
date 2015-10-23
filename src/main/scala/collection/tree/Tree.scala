@@ -67,28 +67,6 @@ sealed trait Tree[A] {
     rec(this) - 1
   }
 
-  def leafCount: Int = {
-    @tailrec
-    def rec(ts: List[Tree[A]], z: Int): Int = ts match {
-      case (l: Leaf[A]) :: tl => rec(tl, z + 1)
-      case (n: Node[A]) :: tl => rec(n.cs ::: tl, z)
-      case _ :: tl            => rec(tl, z)
-      case _                  => z
-    }
-    rec(List(this), 0)
-  }
-
-  def leaves: List[A] = {
-    @tailrec
-    def rec(ts: List[Tree[A]], ls: List[A]): List[A] = ts match {
-      case (l: Leaf[A]) :: tl => rec(tl, l.v :: ls)
-      case (n: Node[A]) :: tl => rec(n.cs ::: tl, ls)
-      case _ :: tl            => rec(tl, ls)
-      case _                  => ls
-    }
-    rec(List(this), List()) reverse
-  }
-
   def levels: List[List[A]] = {
     @tailrec
     def rec(lvl: List[Tree[A]], lvls: List[List[A]]): List[List[A]] = lvl match {
@@ -98,11 +76,11 @@ sealed trait Tree[A] {
     rec(List(this), List()) reverse
   }
 
-  def leafCount2: Int = {
+  def leafCount: Int = {
     foldRec(List(this), 0) { (sum: Int, v: A) => sum + 1 } { (n, tl) => n.cs ::: tl }
   }
 
-  def leaves2: List[A] = {
+  def leaves: List[A] = {
     foldRec(List(this), List[A]()) { (l: List[A], v: A) => v :: l } { (n, tl) => n.cs ::: tl } reverse
   }
 
@@ -113,6 +91,7 @@ sealed trait Tree[A] {
   def toSeqPostorder: Seq[A] = foldPostorder(List[A]())((l, v) => v :: l) reverse
 
   def toSeqLevelorder: Seq[A] = foldLevelorder(List[A]())((l, v) => v :: l) reverse
+
 }
 
 object Tree {

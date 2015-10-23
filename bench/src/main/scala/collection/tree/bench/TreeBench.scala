@@ -47,21 +47,7 @@ class TreeBench {
   }
 
   @Benchmark
-  def benchLeafCount2(): Unit = {
-    tree.leafCount2
-  }
-
-  @Benchmark
-  def benachLeaves(): Unit = {
+  def benchLeaves(): Unit = {
     tree.leaves
   }
-
-  @Benchmark
-  def benchLeaves2(): Unit = {
-    tree.leaves2
-  }
-
-
-
-
 }
