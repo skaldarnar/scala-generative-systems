@@ -1,3 +1,4 @@
+
 lazy val root = (project in file(".")).
   settings(
     name            := "scala-generative-grammar",
@@ -5,3 +6,9 @@ lazy val root = (project in file(".")).
     scalaVersion    := "2.11.7"
   )
 
+lazy val bench = (project in file("bench"))
+  .settings (
+    scalaVersion := "2.11.7"
+  )
+  .enablePlugins(JmhPlugin)
+  .dependsOn(root)
