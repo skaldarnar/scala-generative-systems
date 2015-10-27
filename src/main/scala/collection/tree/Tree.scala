@@ -92,6 +92,15 @@ sealed trait Tree[A] {
 
   def toSeqLevelorder: Seq[A] = foldLevelorder(List[A]())((l, v) => v :: l) reverse
 
+  def level: Int = {
+    @tailrec
+    def rec(p: Option[Tree[_]], z: Int): Int = p match {
+      case Some(t) => rec(t.parent, z+1)
+      case None => z
+    }
+    rec(this.parent, 0)
+  }
+
 }
 
 object Tree {
