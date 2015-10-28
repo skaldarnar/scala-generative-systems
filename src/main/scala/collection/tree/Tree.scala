@@ -10,6 +10,7 @@ sealed trait Tree[A] {
     case n: Node[A] => Some(n.v)
     case l: Leaf[A] => Some(l.v)
     case e: Eval[A] => Some(e.v)
+    case _ => None
   }
 
   def children: Option[Seq[Tree[A]]] = this match {
@@ -95,11 +96,24 @@ sealed trait Tree[A] {
   def level: Int = {
     @tailrec
     def rec(p: Option[Tree[_]], z: Int): Int = p match {
-      case Some(t) => rec(t.parent, z+1)
-      case None => z
+      case Some(t) => rec(t.parent, z + 1)
+      case None    => z
     }
     rec(this.parent, 0)
   }
+
+  def collect(filter: (Tree[A] => Boolean)): List[Tree[A]] = {
+    @tailrec
+    def rec(l: List[Tree[A]], acc: List[Tree[A]]): List[Tree[A]] = l match {
+      case (n: Node[A]) :: ts => if (filter(n)) rec(n.cs ::: ts, n :: acc) else rec(n.cs ::: ts, acc)
+      case (l: Leaf[A]) :: ts => if (filter(l)) rec(ts, l :: acc) else rec(ts, acc)
+      case Nil                => acc
+      case _                  => acc
+    }
+    rec(List(this), List()) reverse
+  }
+
+  def openNodes: List[Tree[A]] = collect(t => t.children.isDefined && t.children.get.isEmpty)
 
 }
 
