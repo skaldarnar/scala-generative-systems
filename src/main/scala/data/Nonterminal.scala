@@ -1,6 +1,6 @@
 package data
 
-case class Nonterminal(override val name: String) extends Symbol(name) {
+class Nonterminal(override val name: String) extends Symbol(name) {
 
   var children: Seq[Symbol] = Seq()
 

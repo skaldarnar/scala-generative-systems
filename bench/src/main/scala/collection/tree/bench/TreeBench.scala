@@ -1,9 +1,10 @@
 package collection.tree.bench
 
-import data.{Grammar, Terminal, Nonterminal}
+import java.util.concurrent.TimeUnit
+
+import data.{Grammar, Nonterminal, Terminal}
 import logic.ProductionSystem
 import org.openjdk.jmh.annotations._
-import java.util.concurrent.TimeUnit
 
 @State(Scope.Thread)
 @Warmup(iterations = 10, time = 1, timeUnit = TimeUnit.SECONDS)
@@ -39,7 +40,7 @@ class TreeBench {
 
   val sys = new ProductionSystem(g, "asdf".hashCode)
 
-  val tree = sys.generate3()
+  val tree = sys.generate()
 
   @Benchmark
   def benchLeafCount(): Unit = {

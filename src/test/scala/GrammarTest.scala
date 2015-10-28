@@ -32,13 +32,10 @@ object GrammarTest {
 
     println("\n\n")
     println("history keeping approach")
-    val hist = sys.generate()
-    (hist reverse) foreach println
 
     println("\n\n")
     println("tree approach")
     sys = new ProductionSystem(g, "asdfasdf".hashCode)
-    (sys.generate3() levels) foreach println
-
+    (sys.generate() levels) foreach println
   }
 }
