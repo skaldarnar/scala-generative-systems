@@ -10,6 +10,7 @@ import javafx.util.Duration
 import collection.tree.{Node, Tree}
 import data.{Grammar, Nonterminal, Symbol, Terminal}
 import logic.ProductionSystem
+import logic.ProductionSystem._
 import ui.{Camera, ResizableCanvas, TurtleInterpreter}
 
 object LSystemTest {
@@ -64,7 +65,7 @@ class LSystemTest extends Application {
     var segmentLength = 100.0
     var word: Seq[String] = Seq()
     dt = sys.derive(derivationSteps)
-    word = dt.collect(t => t.children.isEmpty || t.children.get.isEmpty).map(_.value.get.name)
+    word = dt.collect(t => t.children.isEmpty || t.children.get.isEmpty).map(_.value.get.id)
 
     val turtle = new TurtleInterpreter(segmentLength, math.toRadians(90))
     turtle.state = (camera.pos._1, camera.pos._2, math.toRadians(90))
@@ -99,7 +100,7 @@ class LSystemTest extends Application {
         if (lastDerivationSteps != derivationSteps) {
           sys.resetTree
           dt = sys.derive(derivationSteps)
-          word = dt.collect(t => t.children.isEmpty || t.children.get.isEmpty).map(_.value.get.name)
+          word = dt.collect(t => t.children.isEmpty || t.children.get.isEmpty).map(_.value.get.id)
           turtle.d = segmentLength
           lastDerivationSteps = derivationSteps
         }

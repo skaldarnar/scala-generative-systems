@@ -3,6 +3,8 @@ import logic.ProductionSystem
 
 object GrammarTest {
   def main(args: Array[String]) {
+    import logic.ProductionSystem._
+
     val S = new Nonterminal("S")
     val A = new Nonterminal("A")
     val B = new Nonterminal("B")

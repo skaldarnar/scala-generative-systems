@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit
 
 import data.{Grammar, Nonterminal, Terminal}
 import logic.ProductionSystem
+import logic.ProductionSystem._
 import org.openjdk.jmh.annotations._
 
 @State(Scope.Thread)

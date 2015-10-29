@@ -1,9 +1,5 @@
 package data
 
-abstract class Symbol(val name: String) {
-
-  def getChildren: Seq[Symbol] = ???
-
-  override def toString = name
-
+abstract class Symbol(val id: String) {
+  override def toString = id
 }
