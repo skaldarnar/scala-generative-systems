@@ -1,3 +1,5 @@
+package ui
+
 import javafx.animation.{Animation, KeyFrame, Timeline}
 import javafx.application.Application
 import javafx.event.{ActionEvent, EventHandler}
@@ -11,7 +13,6 @@ import collection.tree.{Node, Tree}
 import data.{Grammar, Nonterminal, Symbol, Terminal}
 import logic.ProductionSystem
 import logic.ProductionSystem._
-import ui.{Camera, ResizableCanvas, TurtleInterpreter}
 
 object LSystemTest {
 
